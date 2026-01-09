@@ -33,3 +33,40 @@ function addTransaction(e) {
   text.value = "";
   amount.value = "";
 }
+
+// Add transaction to DOM
+function addTransactionDOM(transaction) {
+  const sign = transaction.amount < 0 ? "-" : "+";
+
+  const item = document.createElement("li");
+  item.classList.add(transaction.amount < 0 ? "minus" : "plus");
+
+  item.innerHTML = `
+    ${transaction.text}
+    <span>${sign}₹${Math.abs(transaction.amount)}</span>
+    <button onclick="removeTransaction(${transaction.id})">x</button>
+  `;
+
+  list.appendChild(item);
+}
+
+// Update balance, income, expense
+function updateValues() {
+  const amounts = transactions.map(t => t.amount);
+
+  const total = amounts.reduce((acc, val) => acc + val, 0);
+  const inc = amounts.filter(val => val > 0).reduce((acc, val) => acc + val, 0);
+  const exp = amounts.filter(val => val < 0).reduce((acc, val) => acc + val, 0);
+
+  balance.innerText = `₹${total}`;
+  income.innerText = `₹${inc}`;
+  expense.innerText = `₹${Math.abs(exp)}`;
+}
+
+// Remove transaction
+function removeTransaction(id) {
+  transactions = transactions.filter(t => t.id !== id);
+
+  updateLocalStorage();
+  init();
+}
