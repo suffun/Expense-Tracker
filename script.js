@@ -70,3 +70,20 @@ function removeTransaction(id) {
   updateLocalStorage();
   init();
 }
+
+// Update localStorage
+function updateLocalStorage() {
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+}
+
+// Initialize app
+function init() {
+  list.innerHTML = "";
+  transactions.forEach(addTransactionDOM);
+  updateValues();
+}
+
+form.addEventListener("submit", addTransaction);
+
+init();
+
