@@ -3,7 +3,6 @@
 A simple expense tracker built with **HTML, CSS, and JavaScript** to track income, expenses, balance, and store data using **localStorage**.
 
 ---
-
 ## 🚀 Features
 - Add income and expenses
 - View total balance
